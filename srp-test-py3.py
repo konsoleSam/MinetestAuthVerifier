@@ -52,3 +52,6 @@ print(minetest_auth_checker("owner","",data[2]))
 
 #cursor.execute("UPDATE [auth] SET [name]='owner19' WHERE [name]='owner';")
 #connection.commit()
+
+#salt,verifier=srp.create_salted_verification_key("owner".lower(), "", hash_alg=srp.SHA256, ng_type=srp.NG_2048)
+#key=f"#1#{base64.b64encode(salt).decode()[:-2]}#{base64.b64encode(verifier).decode()[:-2]}"
