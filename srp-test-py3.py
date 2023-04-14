@@ -8,9 +8,12 @@ import base64
 #of the given salt, password, and the player's name lowercased,
 #using the 2048-bit group specified in RFC 5054 and the SHA-256 hash function.
 
+username="owner"
+password=""
+
 connection=sqlite3.connect("auth.sqlite")
 cursor=connection.cursor()
-cursor.execute("SELECT * FROM [auth] WHERE name='owner'")
+cursor.execute(f"SELECT * FROM [auth] WHERE name='{username}'")
 data=cursor.fetchone()
 
 def long_to_bytes(n):
@@ -48,10 +51,11 @@ def minetest_auth_checker(username,password,key):
     x=create_salted_verification_key(username.lower(),password,salt)
     return verifier==x
 
-print(minetest_auth_checker("owner","",data[2]))
+print(minetest_auth_checker(username,password,data[2]))
 
 #cursor.execute("UPDATE [auth] SET [name]='owner19' WHERE [name]='owner';")
 #connection.commit()
 
+#Use below to generate minetest password
 #salt,verifier=srp.create_salted_verification_key("owner".lower(), "", hash_alg=srp.SHA256, ng_type=srp.NG_2048)
 #key=f"#1#{base64.b64encode(salt).decode()[:-2]}#{base64.b64encode(verifier).decode()[:-2]}"
